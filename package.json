@@ -1,6 +1,10 @@
 {
   "name": "apollographql_sample",
   "version": "0.1.0",
+  "description": "This is apollographql sample application.",
+  "repository": "git@github.com:ham0215/apollographql_sample.git",
+  "author": "ham",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",

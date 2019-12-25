@@ -1,8 +1,26 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ApolloClient from 'apollo-boost';
+import { gql } from "apollo-boost";
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3004/graphql',
+});
+
 
 function App() {
+  client.query({
+    query: gql`
+      {
+        allLinks(description: "Best") {
+          id
+          description
+        }
+      }
+    `
+  }).then(result => console.log(result));
+
   return (
     <div className="App">
       <header className="App-header">

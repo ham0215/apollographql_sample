@@ -13,5 +13,7 @@ bffはdatabaseなしでよかった
 
 # 構成
 
+```
 Front[react, apollo] <-(graphql)-> BFF(rails) <-(gRPC)-> Backend[rails] <-> MySQL
                                               <-(...)-> Auth
+```

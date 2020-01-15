@@ -1,0 +1,21 @@
+version: '3'
+services:
+  bff:
+    build: bff
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ./bff:/app:cached
+    ports:
+      - 3050:3000
+    environment:
+      EDITOR: vim
+    tty: true
+    stdin_open: true
+  db:
+    image: mysql:5.7.27
+    volumes:
+      - db-volume:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+volumes:
+  db-volume:

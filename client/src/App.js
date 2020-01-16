@@ -13,10 +13,7 @@ function App() {
   client.query({
     query: gql`
       {
-        allLinks(description: "Best") {
-          id
-          description
-        }
+        testField
       }
     `
   }).then(result => console.log(result));

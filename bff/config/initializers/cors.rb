@@ -14,3 +14,16 @@
 #       methods: [:get, :post, :put, :patch, :delete, :options, :head]
 #   end
 # end
+
+return if Rails.env.test?
+
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins '*'
+    #origins ['localhost:3000', 'localhost:3004']
+    resource '*', {
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head],
+    }
+  end
+end

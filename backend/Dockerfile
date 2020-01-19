@@ -21,4 +21,4 @@ COPY . .
 
 RUN rm -f /app/tmp/pids/server.pid
 
-CMD ["rails", "s", "-b", "0.0.0.0"]
+CMD ["rails", "runner", "bin/grpc_server.rb"]

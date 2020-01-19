@@ -1,14 +1,11 @@
-#this_dir = File.expand_path(File.dirname(__FILE__))
-#lib_dir = File.join(this_dir, 'lib')
-#$LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
-
-#require 'grpc'
-#require 'helloworld_services_pb'
+require 'grpc/helloworld_services_pb'
 
 # GreeterServer is simple server that implements the Helloworld Greeter server.
 class GreeterServer < Helloworld::Greeter::Service
   # say_hello implements the SayHello rpc method.
   def say_hello(hello_req, _unused_call)
+    Rails.logger.debug('start say_hello')
+    Rails.logger.debug(hello_req.inspect)
     Helloworld::HelloReply.new(message: "Hello #{hello_req.name}")
   end
 end

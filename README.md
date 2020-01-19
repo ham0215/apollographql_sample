@@ -19,21 +19,23 @@ Front[react, apollo] <-(graphql)-> BFF(rails) <-(gRPC)-> Backend[rails] <-> MySQ
 ```
 
 # grpc
+下記を使用
+https://github.com/grpc/grpc
 
 back/lib/protos配下にprotoを作成
 
 コマンドを実行してrbを作成
 
 ```
-grpc_tools_ruby_protoc -I lib/protos --ruby_out=app/grpc --grpc_out=app/grpc lib/protos/helloworld.proto
+grpc_tools_ruby_protoc -I lib/protos --ruby_out=lib/grpc --grpc_out=lib/grpc lib/protos/helloworld.proto
 ```
 
-生成されたファイルが自動ロードされるようにhelloworld.rb１ファイルにまとめる
+生成されたファイルのrequireに'grpc/'をつける。`require 'grpc'`は不要なので削除。
 
 bffにコピー
 
 ```
-cp -p back/app/grpc/helloworld.rb bff/app/grpc/
+cp -p backend/lib/grpc/* bff/lib/grpc/
 ```
 
 サーバー起動
@@ -45,8 +47,8 @@ rails runner bin/greeter_server.rb
 クライアントからアクセス(rails console)
 
 ```
+require 'grpc/helloworld_services_pb'
 stub = Helloworld::Greeter::Stub.new('back:3000', :this_channel_is_insecure)
-user = 'world'
-message = stub.say_hello(Helloworld::HelloRequest.new(name: user)).message
+message = stub.say_hello(Helloworld::HelloRequest.new(name: 'world')).message
 p "Greeting: #{message}"
 ```
